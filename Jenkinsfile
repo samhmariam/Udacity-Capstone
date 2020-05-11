@@ -26,7 +26,7 @@ pipeline {
         }
         stage ('Docker Push') {
             steps {
-                sh 'docker tag hello-udacity ${registry}'
+                sh 'docker tag hello-udacity ${registry}/hello-udacity'
                 sh 'docker push ${registry}'
             }
         }
