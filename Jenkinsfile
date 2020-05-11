@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registry = '120106008631.dkr.ecr.us-east-1.amazonaws.com/hello-udacity/'
+        registry = '120106008631.dkr.ecr.us-east-1.amazonaws.com/hello-udacity'
     }
     stages {
         stage('Lint') {
@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                sh "docker build -t hello-udacity:latest ."
+                sh "docker build -t hello-udacity ."
             }
         }
         stage('ECR login') {
@@ -26,7 +26,8 @@ pipeline {
         }
         stage ('Docker Push') {
             steps {
-                sh 'docker push ${registry}'
+                sh 'docker tag hello-udacity:latest ${registry}:latest'
+                sh 'docker push ${registry}:latest'
             }
         }
     }
