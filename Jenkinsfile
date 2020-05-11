@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        registry = '120106008631.dkr.ecr.us-east-1.amazonaws.com/hello-udacity/hello-udacity:latest'
+        registry = '120106008631.dkr.ecr.us-east-1.amazonaws.com/hello-udacity/'
     }
     stages {
         stage('Lint') {
