@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-udacity
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 8080
+  selector:
+    app: hello-udacity
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-udacity
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 2
+      maxSurge: 2
+  selector:
+    matchLabels:
+      app: hello-udacity
+  template:
+    metadata:
+      labels:
+        app: hello-udacity
+    spec:
+      containers:
+        - name: hello-udacity
+          image: 120106008631.dkr.ecr.us-east-1.amazonaws.com/hello-udacity:latest
+          securityContext:
+            privileged: false
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+          ports:
+            - containerPort: 8080

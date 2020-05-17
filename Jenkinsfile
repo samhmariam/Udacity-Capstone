@@ -27,5 +27,10 @@ pipeline {
                 sh 'docker push 120106008631.dkr.ecr.us-east-1.amazonaws.com/hello-udacity:latest'
             }
         }
+        stage('Deploy') {
+            steps {
+                sh 'ansible-playbook playbook.yml'
+            }
+        }
     }
 }
